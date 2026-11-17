@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import multer from 'multer';
 import {
-  HarnessRouter, runTask, subscribe, signPreview, verifyPreview,
+  HarnessRouter, runTask, recoverTask, subscribe, signPreview, verifyPreview,
   previewFile, downloadFile, safeRelPath, PREVIEW_HEADERS, PREVIEW_TYPES,
   TERMINAL_STATUSES,
 } from './harnessrouter.ts';
@@ -41,6 +41,14 @@ class FileTaskStore {
     const tmp = this.file(rec.taskId) + '.tmp';
     await fsp.writeFile(tmp, JSON.stringify(rec, null, 2));
     await fsp.rename(tmp, this.file(rec.taskId));
+  }
+  async list() {
+    const out = [];
+    for (const name of await fsp.readdir(this.dir)) {
+      if (!name.endsWith('.json')) continue;
+      try { out.push(JSON.parse(await fsp.readFile(path.join(this.dir, name), 'utf8'))); } catch {}
+    }
+    return out;
   }
 }
 const store = new FileTaskStore(path.join(DATA, 'tasks'));
@@ -235,4 +243,16 @@ app.get('/api/tasks/:id/download/*', async (req, res) => {
 
 app.use(express.static(path.join(ROOT, 'public'), { maxAge: '1h', index: 'index.html' }));
 
-app.listen(PORT, () => console.log(`LeaseLens listening on http://localhost:${PORT} (${liveMode() ? 'live' : 'demo'} mode)`));
+// A restart must not orphan a running review: settle every unfinished live record.
+async function recoverInFlight() {
+  if (!hr) return;
+  for (const rec of await store.list()) {
+    if (rec.demo || TERMINAL_STATUSES.has(rec.status)) continue;
+    recoverTask(hr, store, rec.taskId).then(materialize).catch(() => {});
+  }
+}
+
+app.listen(PORT, () => {
+  console.log(`LeaseLens listening on http://localhost:${PORT} (${liveMode() ? 'live' : 'demo'} mode)`);
+  recoverInFlight();
+});
