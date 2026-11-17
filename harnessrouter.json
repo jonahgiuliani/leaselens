@@ -1,0 +1,14 @@
+{
+  "harness_id": "chrn_652df5ed5014451090a84b646da10d40",
+  "name": "LeaseLens lease review",
+  "base": "hermes",
+  "model": "deepseek-v4-pro",
+  "workspace": "Default Workspace",
+  "instructions_file": "harness-instructions.txt",
+  "budgets": {
+    "max_step": 200,
+    "timeout_seconds": 1800,
+    "max_cost_usd": 2
+  },
+  "updated_at": "2026-11-17T09:56:09.321Z"
+}

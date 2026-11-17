@@ -1,0 +1,21 @@
+Subject: Questions about the lease for [unit address] before signing
+
+Hi [landlord name],
+
+Thanks for sending the lease over. I'm excited about the apartment and I'd like to sign soon. Going through it carefully, a few clauses need adjustment before I can do that - two of them conflict with California law:
+
+1. Security deposit. The lease asks for three months' rent ($7,200). Civil Code §1950.5, as amended by AB 12, caps residential deposits at one month's rent. Could you update it to $2,400?
+
+2. Repairs and habitability. The "as is" clause makes the tenant responsible for all repairs, including plumbing and heating, and waives habitability claims. Those responsibilities can't be waived under Civil Code §§1941.1 and 1942.1. Could we restore the standard landlord responsibility for structural, plumbing, heating and safety repairs?
+
+3. Entry. The lease allows entry "at any time." Civil Code §1954 requires 24-hour written notice except in emergencies. Happy to agree to reasonable showings with notice.
+
+4. Late fee. $150 plus $25 per day would likely be treated as an unenforceable penalty. I'd suggest a flat $50 fee after a five-day grace period.
+
+5. Cleaning fee. The $400 non-refundable deduction conflicts with §1950.5, which doesn't permit non-refundable deposit charges. Could we remove it?
+
+Everything else in the lease works for me. If you can send an updated version with these changes, I'll sign the same day.
+
+Thanks,
+[your name]
+[your phone]

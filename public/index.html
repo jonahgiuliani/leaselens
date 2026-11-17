@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeaseLens - Know what you're signing</title>
+<meta name="description" content="Upload your lease. LeaseLens flags the clauses that could cost you, checks them against California tenant law, and drafts the email to your landlord. Free for renters who can't afford a lawyer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand"><span class="brand-mark">⌕</span> LeaseLens</div>
+    <div class="topbar-note">Built by Berkeley students, for renters everywhere</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- LANDING / UPLOAD -->
+  <section id="view-upload">
+    <div class="hero">
+      <h1>Know what you're <span class="hl">signing</span>.</h1>
+      <p class="lede">One in three student leases hides a clause that could cost you hundreds of dollars.
+      LeaseLens reads your lease in about a minute, flags what a lawyer would flag, checks it against
+      California tenant law, and drafts the email that starts fixing it.</p>
+      <p class="pledge">$5 a lease &middot; <strong>free, no questions asked, if you can't afford it.</strong>
+      Nobody should sign blind because a lawyer costs $300 an hour.</p>
+    </div>
+
+    <div class="card upload-card">
+      <div class="tabs">
+        <button class="tab active" id="tab-pdf" type="button">Upload the PDF</button>
+        <button class="tab" id="tab-text" type="button">Paste the text</button>
+      </div>
+
+      <div id="pane-pdf">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="file-input" accept=".pdf,.txt,.md,application/pdf,text/plain" hidden>
+          <div class="dz-icon">📄</div>
+          <div class="dz-main" id="dz-label">Drop your lease here, or <span class="linklike">browse</span></div>
+          <div class="dz-sub">PDF or text, up to 20 MB. Your lease is used only for your review.</div>
+        </label>
+      </div>
+
+      <div id="pane-text" hidden>
+        <textarea id="lease-text" rows="10"
+          placeholder="Paste the full text of your lease here (from a PDF, email, or the landlord's doc)..."></textarea>
+      </div>
+
+      <details class="context-box">
+        <summary>Anything we should know? <span class="dim">(optional)</span></summary>
+        <textarea id="context-input" rows="2"
+          placeholder="e.g. It's a 12-month lease near campus, $2,400/mo with two roommates. I'm most worried about the deposit and the early-move-out terms."></textarea>
+      </details>
+
+      <button class="cta" id="analyze-btn" type="button" disabled>Check my lease</button>
+      <p class="fineprint">LeaseLens is not a law firm and this is not legal advice. It is a first line of
+      defense that tells you what to push back on and where to get real help.</p>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item"><strong>CA tenant law</strong><span>Deposits, entry, habitability, fees</span></div>
+      <div class="trust-item"><strong>Plain English</strong><span>Every flag explained, every fix suggested</span></div>
+      <div class="trust-item"><strong>Ready to send</strong><span>A firm, polite email to your landlord</span></div>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="view-progress" hidden>
+    <div class="card progress-card">
+      <div class="spinner" aria-hidden="true"></div>
+      <h2>Reading your lease&hellip;</h2>
+      <p class="dim">A lawyer does this in an hour. Give us about a minute.</p>
+      <ul class="progress-log" id="progress-log"></ul>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="view-results" hidden>
+    <div class="results-head">
+      <h2 id="results-title">Your lease review</h2>
+      <button class="ghost" id="start-over" type="button">&larr; Check another lease</button>
+    </div>
+
+    <div class="card summary-card" id="summary-card"></div>
+    <div class="card" id="flags-card">
+      <h3>Red flags</h3>
+      <div id="flags-list"></div>
+    </div>
+    <div class="card" id="email-card">
+      <h3>Email your landlord</h3>
+      <p class="dim">Polite, specific, and cites the law. Edit it, then send it from your own inbox.</p>
+      <pre id="landlord-email"></pre>
+      <div class="btn-row">
+        <button class="secondary" id="copy-email" type="button">Copy email</button>
+        <a class="secondary" id="mailto-link" href="#">Open in mail app</a>
+      </div>
+    </div>
+    <div class="card" id="report-card">
+      <h3>Full report</h3>
+      <iframe id="report-frame" title="LeaseLens full report" sandbox="allow-scripts allow-forms" referrerpolicy="no-referrer"></iframe>
+      <div class="btn-row">
+        <a class="secondary" id="open-report" href="#" target="_blank" rel="noopener">Open full report</a>
+        <a class="secondary" id="download-email" href="#" download="landlord-email.txt">Download email</a>
+      </div>
+    </div>
+
+    <div class="card rights-card">
+      <h3>Your rights, for real</h3>
+      <p>You can act on every flag above for free. These organizations help renters directly:</p>
+      <ul>
+        <li><strong>Berkeley Rent Stabilization Board</strong> - free counseling for Berkeley tenants, rentboard@berkeleyca.gov</li>
+        <li><strong>East Bay Community Law Center</strong> - free legal services for low-income Alameda County residents</li>
+        <li><strong>Bay Area Legal Aid</strong> - free civil legal help across the Bay Area</li>
+        <li><strong>California Courts self-help</strong> - courts.ca.gov tenant guides for deposits, repairs and evictions</li>
+      </ul>
+      <p class="dim">If a flag above says a clause is likely unenforceable, that usually means California law
+      voids it even though you signed. A tenants' counselor can confirm in one call.</p>
+    </div>
+  </section>
+
+  <!-- ERROR -->
+  <section id="view-error" hidden>
+    <div class="card">
+      <h2>Something went wrong</h2>
+      <p id="error-text" class="dim"></p>
+      <button class="cta" id="retry-btn" type="button">Try again</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap footer">
+  <p><strong>LeaseLens</strong> &middot; The Big Hack Game 2026 &middot; Agent runtime by HarnessRouter &middot;
+  Not legal advice &middot; Free tier funded by paid reviews</p>
+</footer>
+
+<script src="/app.js" type="module"></script>
+</body>
+</html>
