@@ -31,3 +31,7 @@ Prize note: the Best Build Log award is $500-1,000 - keep this honest and curren
   link; free tier live from day one.
 - Distribution: sample-lease results as a shareable artifact for group chats
   and Reddit (r/berkeley, r/ApplyingToCollege housing threads).
+
+## 2026-11-17 11:32-11:49 - First live end-to-end run
+
+Redeemed the hackathon's $50 TokenRouter credit (voucher -> TokenRouter account -> API key -> HarnessRouter BYOK, key stored encrypted on their side). With BYOK connected, the live pipeline ran end to end against harness `chrn_652df5ed5014451090a84b646da10d40`: uploaded the sample lease PDF, the agent reviewed it, and wrote all four deliverables. Result: risk high, 13 flags (6 illegal, 3 warnings, 4 notices) - security deposit triple the AB 12 cap, habitability waiver, landlord negligence shield. ~62k tokens (plus 357k cache reads), about 17 minutes of agent time. Deliverables verified byte-for-byte from the session: flags.json, landlord-email.txt, report.html, manifest.json (verified: true).
